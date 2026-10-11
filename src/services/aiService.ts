@@ -1,15 +1,19 @@
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://10.0.2.2:3001";
+export type GenerationStyle = "same" | "detailed" | "dynamic" | "clean";
 
 export type GenerationRequest = {
   sourceUri?: string;
   prompt: string;
   position?: "left" | "center" | "right";
+  style?: GenerationStyle;
 };
+
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://10.0.2.2:3001";
 
 export async function generateImageFromReference({
   sourceUri,
   prompt,
   position = "right",
+  style = "same",
 }: GenerationRequest): Promise<{ uri: string }> {
   if (!sourceUri) {
     throw new Error("É necessário enviar uma imagem de referência.");
@@ -25,6 +29,7 @@ export async function generateImageFromReference({
   } as any);
   formData.append("prompt", prompt);
   formData.append("position", position);
+  formData.append("style", style);
 
   const response = await fetch(`${API_URL}/api/generate`, {
     method: "POST",

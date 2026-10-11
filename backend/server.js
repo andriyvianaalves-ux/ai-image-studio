@@ -25,6 +25,13 @@ const upload = multer({
   },
 });
 
+const stylePrompts = {
+  same: "same illustration style, same subject identity, same visual language, same color palette, preserve original design",
+  detailed: "high detail, crisp lines, refined shapes, rich textures, more precise outline, polished illustration",
+  dynamic: "more dynamic pose, stronger composition, energetic movement, expressive layout",
+  clean: "clean background, simple composition, polished aesthetics, strong readability",
+};
+
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 
@@ -34,7 +41,7 @@ app.get("/health", (_req, res) => {
 
 app.post("/api/generate", upload.single("image"), async (req, res) => {
   try {
-    const { prompt, position = "right" } = req.body;
+    const { prompt, position = "right", style = "same" } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "Imagem de referência obrigatória." });
@@ -50,10 +57,13 @@ app.post("/api/generate", upload.single("image"), async (req, res) => {
       });
     }
 
+    const safeStyle = style in stylePrompts ? style : "same";
+    const safePosition = ["left", "center", "right"].includes(position) ? position : "right";
+
     const fileBuffer = fs.readFileSync(req.file.path);
     const mimeType = req.file.mimetype || "image/jpeg";
     const base64 = fileBuffer.toString("base64");
-    const optimizedPrompt = `${prompt}, same illustration style, same colors, same character identity, same details, same reference subject, preserve art style, reposition subject to the ${position} side of the frame, balanced composition, clean background, high quality, detailed visual`;
+    const optimizedPrompt = `${prompt}, ${stylePrompts[safeStyle]}, keep the same subject, keep the same artistic identity, preserve the original details, move the subject to the ${safePosition} side of the frame, balanced composition, clean background, high quality, detailed visual, no watermark, professional illustration`;
 
     const payload = {
       input: {

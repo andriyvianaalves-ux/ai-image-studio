@@ -1,27 +1,32 @@
 # AI Image Studio
 
-Aplicativo mobile para gerar imagens com uma imagem de referência e um prompt textual, preservando o estilo do desenho e alterando sua posição/composição.
+Aplicativo mobile para gerar imagens com uma imagem de referência e prompt textual, mantendo o estilo do desenho original e alterando a posição/composição.
+
+## Funcionalidades
+- seleção de imagem da galeria
+- prompt em português
+- estilo visual: mesmo estilo, mais detalhado, mais dinâmico, mais limpo
+- posição: esquerda, centro, direita
+- resultado em tela
+- histórico das últimas criações
+- botão para abrir a imagem gerada
+- integração com backend de IA
 
 ## Requisitos
 - Node.js 18+
 - Expo CLI
-- Conta com chave de API de um provedor de IA que suporte geração com imagem de referência
-- Exemplo recomendado: Replicate com modelo Flux/SDXL ou outro modelo de image-to-image
-
-## Estrutura
-- `App.tsx`: interface do app mobile
-- `src/services/aiService.ts`: integração com o backend de IA
-- `backend/`: servidor Express para receber a imagem e chamar a API de geração
+- chave válida para um provedor de IA compatível
 
 ## Configuração do backend
 
-1. Crie o arquivo `backend/.env` a partir do exemplo:
+1. Entre na pasta backend
+2. Crie o arquivo `.env`:
 
 ```bash
-cp backend/.env.example backend/.env
+cp .env.example .env
 ```
 
-2. Preencha com sua chave da API e a URL do modelo:
+3. Preencha com sua chave da API:
 
 ```env
 PORT=3001
@@ -29,14 +34,14 @@ REPLICATE_API_KEY=sua_chave_aqui
 REPLICATE_MODEL_URL=https://api.replicate.com/v1/models/blackforestlabs/flux-schnell/predictions
 ```
 
-3. Instale as dependências do backend:
+4. Instale as dependências:
 
 ```bash
 cd backend
 npm install
 ```
 
-4. Inicie o servidor:
+5. Inicie o backend:
 
 ```bash
 npm start
@@ -44,27 +49,15 @@ npm start
 
 ## Execução do app mobile
 
-No diretório raiz do projeto:
+No diretório raiz:
 
 ```bash
 npm install
 npx expo start
 ```
 
-Se estiver usando Android Emulator, o app já usa `http://10.0.2.2:3001` por padrão.
-Se estiver usando Expo Go no celular, troque o valor em `src/services/aiService.ts` para o IP da máquina local, por exemplo:
+Se o app estiver no Android Emulator, a URL padrão do backend em `src/services/aiService.ts` já funciona em `http://10.0.2.2:3001`.
+Se estiver usando Expo Go, troque a URL para o IP da máquina local.
 
-```ts
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://192.168.0.10:3001";
-```
-
-## Como funciona a IA
-
-O app envia a imagem da galeria e o prompt para o backend. O backend cria um prompt reforçando:
-- manter o mesmo estilo e identidade visual
-- preservar a arte do desenho original
-- mudar apenas a posição/composição (esquerda, centro ou direita)
-- gerar uma imagem similar em qualidade e estrutura
-
-## Observação importante
-Este projeto está pronto para integração real com IA. Para que a geração funcione de verdade, você precisa de uma chave válida de um provedor. O código está preparado para receber a imagem da galeria e enviar para uma API externa.
+## Observação
+Esse projeto foi preparado para gerar imagens com IA real. Sem uma chave válida da API, a geração não ocorrerá.
