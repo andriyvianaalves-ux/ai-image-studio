@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "AI Image Studio",
+    "slug": "ai-image-studio-mobile",
+    "userInterface": "automatic",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      },
+      "softwareKeyboardLayoutMode": "pan"
+    }
+  }
+}
