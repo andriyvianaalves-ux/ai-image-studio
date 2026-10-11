@@ -1,27 +1,42 @@
 {
   "expo": {
     "name": "AI Image Studio",
-    "slug": "ai-image-studio-mobile",
-    "userInterface": "automatic",
+    "slug": "ai-image-studio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0f172a"
+      "backgroundColor": "#020817"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aiimage.studio"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#0f172a"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#020817"
       },
-      "softwareKeyboardLayoutMode": "pan"
-    }
+      "package": "com.aiimage.studio",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Precisamos de acesso à sua galeria para selecionar imagens de referência.",
+          "cameraPermission": "Precisamos de acesso à câmera para capturar fotos."
+        }
+      ]
+    ]
   }
 }
