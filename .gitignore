@@ -1,6 +1,8 @@
+# .gitignore
 node_modules
 .expo
 .expo-shared
 .DS_Store
-npm-debug.log*
 .env
+backend/.env
+backend/tmp/

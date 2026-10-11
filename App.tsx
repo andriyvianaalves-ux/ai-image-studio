@@ -25,7 +25,7 @@ const POSITION_OPTIONS: Array<{ label: string; value: PositionKey }> = [
 
 export default function App() {
   const [prompt, setPrompt] = useState(
-    "mesmo desenho, mesma arte, mas em outra posição e com composição mais dinâmica"
+    "mesmo desenho, mesma arte, mesma identidade visual, mas em outra posição e com composição mais dinâmica"
   );
   const [selectedImage, setSelectedImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
@@ -75,7 +75,10 @@ export default function App() {
       setResultImage(generated.uri);
     } catch (error) {
       console.error(error);
-      Alert.alert("Erro", "Não foi possível gerar a imagem neste momento.");
+      Alert.alert(
+        "Erro",
+        error instanceof Error ? error.message : "Não foi possível gerar a imagem neste momento."
+      );
     } finally {
       setIsGenerating(false);
     }
